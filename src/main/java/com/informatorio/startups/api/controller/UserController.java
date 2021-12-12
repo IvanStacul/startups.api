@@ -1,5 +1,6 @@
 package com.informatorio.startups.api.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import com.informatorio.startups.api.entity.User;
 import com.informatorio.startups.api.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,13 +30,16 @@ public class UserController {
 
     // READ users
     @GetMapping
-    public ResponseEntity<List<User>> getUsers(@RequestParam(required = false) String city) { 
+    public ResponseEntity<List<User>> getUsers(@RequestParam(required = false) String city,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate) {
         try {
             List<User> users;
-            if (city == null) {  // READ all users
-                users = userRepository.findAll();
-            } else {  // READ users by city
+            if (city != null) { // READ users by city
                 users = userRepository.findByCity(city);
+            } else if (fromDate != null) { // READ users after date
+                users = userRepository.findByCreatedAtAfter(fromDate.atStartOfDay());
+            } else { // READ all users
+                users = userRepository.findAll();
             }
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

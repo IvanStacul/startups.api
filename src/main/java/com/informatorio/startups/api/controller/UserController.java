@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,21 +28,24 @@ public class UserController {
 
     // READ users
     @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<User>> getUsers(@RequestParam(required = false) String city) { 
         try {
-            List<User> users = userRepository.findAll();
-
+            List<User> users;
+            if (city == null) {  // READ all users
+                users = userRepository.findAll();
+            } else {  // READ users by city
+                users = userRepository.findByCity(city);
+            }
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // READ users by id
+    // READ user by id
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
         Optional<User> userData = userRepository.findById(id);

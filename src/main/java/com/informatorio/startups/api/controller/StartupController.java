@@ -3,6 +3,7 @@ package com.informatorio.startups.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.informatorio.startups.api.entity.Role;
 import com.informatorio.startups.api.entity.Startup;
 import com.informatorio.startups.api.entity.User;
 import com.informatorio.startups.api.repository.StartupRepository;
@@ -59,6 +60,17 @@ public class StartupController {
     @PostMapping
     public ResponseEntity<Startup> createStartup(@RequestBody Startup startup) {
         try {
+            if (startup.getOwner() != null){
+                Optional<User> user = userRepository.findById(startup.getOwner().getId());
+                if (user.isPresent()) {
+                    User owner = user.get();
+                    owner.setRole(Role.OWNER);
+                    userRepository.save(owner);
+                    startup.setOwner(owner);
+                } else {
+                    startup.setOwner(null);
+                }
+            }
             return new ResponseEntity<>(startupRepository.save(startup), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

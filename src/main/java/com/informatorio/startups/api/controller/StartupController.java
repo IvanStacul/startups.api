@@ -90,7 +90,7 @@ public class StartupController {
 
     // DELETE Startup by id
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<HttpStatus> deleteGenre(@PathVariable("id") Long id) {
+    public ResponseEntity<HttpStatus> deleteStartup(@PathVariable("id") Long id) {
         try {
             startupRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

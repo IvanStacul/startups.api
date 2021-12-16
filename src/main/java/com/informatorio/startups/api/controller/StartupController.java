@@ -47,10 +47,10 @@ public class StartupController {
 
     // READ Startup by id
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Startup> getStartup(@PathVariable("id") Long id) {
-        Optional<Startup> startupData = startupRepository.findById(id);
-        if (startupData.isPresent()) {
-            return new ResponseEntity<>(startupData.get(), HttpStatus.OK);
+    public ResponseEntity<Startup> getUser(@PathVariable("id") Long id) {
+        Optional<Startup> userData = startupRepository.findById(id);
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -60,7 +60,7 @@ public class StartupController {
     @PostMapping
     public ResponseEntity<Startup> createStartup(@RequestBody Startup startup) {
         try {
-            if (startup.getOwner() != null){
+            if (startup.getOwner() != null) {
                 Optional<User> user = userRepository.findById(startup.getOwner().getId());
                 if (user.isPresent()) {
                     User owner = user.get();
@@ -70,6 +70,13 @@ public class StartupController {
                 } else {
                     startup.setOwner(null);
                 }
+            }
+            if (startup.getTags() != null) {
+                // for (Tag tag : startup.getTags()) {
+
+                // }
+                System.out.print("tags: ");
+                System.out.print(startup.getTags());
             }
             return new ResponseEntity<>(startupRepository.save(startup), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -88,12 +95,18 @@ public class StartupController {
             _startup.setContent(startup.getContent());
             _startup.setGoal(startup.getGoal());
             _startup.setPublished(startup.getPublished());
-            Optional<User> user = userRepository.findById(startup.getOwner().getId());
-            if (user.isPresent()) {
-                _startup.setOwner(user.get());
-            } else {
+            if (startup.getOwner() != null) {
+                Optional<User> user = userRepository.findById(startup.getOwner().getId());
+                if (user.isPresent()) {
+                    _startup.setOwner(user.get());
+                } else {
+                    _startup.setOwner(null);
+                }
+            }else {
                 _startup.setOwner(null);
             }
+            _startup.setTags(startup.getTags());
+            _startup.setPictures(startup.getPictures());
             return new ResponseEntity<>(startupRepository.save(_startup), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

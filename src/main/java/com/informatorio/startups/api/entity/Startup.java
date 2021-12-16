@@ -35,15 +35,15 @@ public class Startup {
     private Boolean published;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User owner;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "startup_id")
-    private List<Picture> pictures = new ArrayList<>();
+    private List<Picture> pictures = new ArrayList<Picture>();
 
-    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Tag> tags = new ArrayList<>();
+    private List<Tag> tags = new ArrayList<Tag>();
 
     @Column(name = "created_at")
     @CreationTimestamp

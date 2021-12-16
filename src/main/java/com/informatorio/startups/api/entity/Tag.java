@@ -27,7 +27,7 @@ public class Tag {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "tags")
-    private List<Startup> startups = new ArrayList<>();
+    private List<Startup> startups = new ArrayList<Startup>();
 
     @Column(name = "created_at")
     @CreationTimestamp

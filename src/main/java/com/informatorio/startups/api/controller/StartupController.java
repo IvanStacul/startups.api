@@ -8,6 +8,7 @@ import com.informatorio.startups.api.entity.Startup;
 import com.informatorio.startups.api.entity.User;
 import com.informatorio.startups.api.repository.StartupRepository;
 import com.informatorio.startups.api.repository.UserRepository;
+import com.informatorio.startups.api.service.StartupService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,17 +30,30 @@ public class StartupController {
     private StartupRepository startupRepository;
 
     @Autowired
+    private StartupService startupService;
+
+    @Autowired
     private UserRepository userRepository;
+
 
     // READ Startups
     @GetMapping
-    public ResponseEntity<List<Startup>> getStartups() {
+    public ResponseEntity<List<Startup>> getStartups(@RequestParam(required = false) String tag) {
         try {
             List<Startup> startups;
-            startups = startupRepository.findAll();
-            if (startups.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            if (tag != null) {
+                startups = startupService.getByTag(tag);
+                if (startups.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } else {
+                startups = startupRepository.findAll();
+                if (startups.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                }
             }
+
             return new ResponseEntity<>(startups, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -102,7 +117,7 @@ public class StartupController {
                 } else {
                     _startup.setOwner(null);
                 }
-            }else {
+            } else {
                 _startup.setOwner(null);
             }
             _startup.setTags(startup.getTags());

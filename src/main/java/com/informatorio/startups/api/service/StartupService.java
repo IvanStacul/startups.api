@@ -18,7 +18,7 @@ public class StartupService {
 
     public List<Startup> getByTag(String tagName){
         List<Startup> startups = new ArrayList<Startup>();
-        Optional<Tag> tag = tagRepository.findByName(tagName);
+        Optional<Tag> tag = tagRepository.findByNameContaining(tagName);
         if (tag.isPresent()) {
             Tag tagData = tag.get();
             startups = tagData.getStartups();

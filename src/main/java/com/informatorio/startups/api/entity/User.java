@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -78,7 +79,8 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }

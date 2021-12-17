@@ -1,10 +1,13 @@
 package com.informatorio.startups.api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.informatorio.startups.api.entity.Event;
+import com.informatorio.startups.api.entity.Startup;
 import com.informatorio.startups.api.repository.EventRepository;
+import com.informatorio.startups.api.repository.StartupRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,9 @@ public class EventController {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private StartupRepository startupRepository;
+
     // READ events
     @GetMapping
     public ResponseEntity<List<Event>> getEvents() {
@@ -40,10 +46,41 @@ public class EventController {
         }
     }
 
+    // READ events
+    @GetMapping("/{id}/ranking")
+    public ResponseEntity<List<Startup>> getEventsRanking(@PathVariable("id") Long id) {
+        try {
+            Optional<Event> event = eventRepository.findById(id);
+
+            if (event.isPresent()) {
+                Event event2 = event.get();
+
+                return new ResponseEntity<>(event2.getSubscribers(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // CREATE event
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         try {
+
+            if (event.getSubscribers() != null){
+                List<Startup> startups = new ArrayList<Startup>();
+                for (Startup startup : event.getSubscribers()) {
+                    Optional<Startup> s = startupRepository.findById(startup.getId());
+                    if (s.isPresent()){
+                        startups.add(s.get());
+                    }
+                }
+                event.setSubscribers(startups);
+            }
+
             return new ResponseEntity<>(eventRepository.save(event), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,7 +98,7 @@ public class EventController {
             _event.setStartDate(event.getStartDate());
             _event.setEndDate(event.getEndDate());
             _event.setAward(event.getAward());
-            
+
             return new ResponseEntity<>(eventRepository.save(_event), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

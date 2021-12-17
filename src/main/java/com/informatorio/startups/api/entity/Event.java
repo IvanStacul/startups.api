@@ -10,8 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,13 +26,15 @@ public class Event {
     private String description;
 
     @ManyToMany(mappedBy = "events")
+    @JsonIgnoreProperties({ "description", "content", "published", "events", "owner", "pictures", "tags" })
+    @OrderBy("votes DESC")
     private List<Startup> subscribers;
     private Double award;
 
     @Column(name = "start_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    
+
     @Column(name = "end_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;

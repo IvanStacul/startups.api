@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -33,6 +34,10 @@ public class Startup {
     private String content;
     private Double goal;
     private Boolean published;
+
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Event> events;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
@@ -140,5 +145,5 @@ public class Startup {
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
-    
+
 }

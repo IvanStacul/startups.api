@@ -35,10 +35,10 @@ public class StartupController {
     @Autowired
     private UserRepository userRepository;
 
-
     // READ Startups
     @GetMapping
-    public ResponseEntity<List<Startup>> getStartups(@RequestParam(required = false) String tag) {
+    public ResponseEntity<List<Startup>> getStartups(@RequestParam(required = false) String tag,
+            @RequestParam(required = false, value = "published") Boolean published) {
         try {
             List<Startup> startups;
 
@@ -47,11 +47,13 @@ public class StartupController {
                 if (startups.isEmpty()) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
+            } else if (published == true) {
+                startups = startupRepository.findByPublished(published);
             } else {
                 startups = startupRepository.findAll();
-                if (startups.isEmpty()) {
-                    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                }
+            }
+            if (startups.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
             return new ResponseEntity<>(startups, HttpStatus.OK);

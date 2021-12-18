@@ -3,6 +3,8 @@ package com.informatorio.startups.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.PushBuilder;
+
 import com.informatorio.startups.api.entity.Role;
 import com.informatorio.startups.api.entity.Startup;
 import com.informatorio.startups.api.entity.User;
@@ -47,7 +49,7 @@ public class StartupController {
                 if (startups.isEmpty()) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
-            } else if (published == true) {
+            } else if (published != null && published == true) {
                 startups = startupRepository.findByPublished(published);
             } else {
                 startups = startupRepository.findAll();

@@ -1,0 +1,834 @@
+{
+	"info": {
+		"_postman_id": "182d2d4f-0f42-47b5-a5eb-a9fd4265ce16",
+		"name": "Startup API - Informatorio - Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/users",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseurl}}/users",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Dec 2021 14:21:41 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Ivan\",\n        \"lastName\": \"Stacul\",\n        \"email\": \"ivan@gmail.com\",\n        \"password\": \"123\",\n        \"city\": \"Resistencia\",\n        \"province\": \"Chaco\",\n        \"country\": \"Argentina\",\n        \"createdAt\": \"2021-12-12T11:21:08.875208\",\n        \"updatedAt\": \"2021-12-12T11:21:08.875208\",\n        \"type\": \"USUARIO\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "GET users by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/users/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "READ users by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseurl}}/users/1",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Dec 2021 14:36:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Ivan\",\n    \"lastName\": \"Stacul\",\n    \"email\": \"ivan@gmail.com\",\n    \"password\": \"123456\",\n    \"city\": \"Resistencia\",\n    \"province\": \"Chaco\",\n    \"country\": \"Argentina\",\n    \"role\": \"USUARIO\",\n    \"createdAt\": \"2021-12-12T11:34:45.394662\",\n    \"updatedAt\": \"2021-12-12T11:34:49.479189\"\n}"
+						},
+						{
+							"name": "READ users by id (not found)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseurl}}/users/2",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"users",
+										"2"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Dec 2021 14:36:21 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "GET users by city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/users?city=Resistencia",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Resistencia"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET users after created date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/users?fromDate=2021-12-15",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "fromDate",
+									"value": "2021-12-15"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET users after created date",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseurl}}/users?fromDate=2021-12-15",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "fromDate",
+											"value": "2021-12-15"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 16 Dec 2021 02:31:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Ivan\",\n        \"lastName\": \"Stacul\",\n        \"email\": \"ivan@gmail.com\",\n        \"password\": \"123\",\n        \"city\": \"Resistencia\",\n        \"province\": \"Chaco\",\n        \"country\": \"Argentina\",\n        \"role\": \"COLABORADOR\",\n        \"createdAt\": \"2021-12-15T23:29:26.496592\",\n        \"updatedAt\": \"2021-12-15T23:29:26.497596\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "CREATE user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"lastName\": \"Stacul\",\r\n    \"email\": \"ivan@gmail.com\",\r\n    \"password\": \"123\",\r\n    \"city\": \"Resistencia\",\r\n    \"province\": \"Chaco\",\r\n    \"country\": \"Argentina\",\r\n    \"role\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/users",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "CREATE user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"lastName\": \"Stacul\",\r\n    \"email\": \"ivan@gmail.com\",\r\n    \"password\": \"123\",\r\n    \"city\": \"Resistencia\",\r\n    \"province\": \"Chaco\",\r\n    \"country\": \"Argentina\",\r\n    \"role\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseurl}}/users",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Dec 2021 14:34:45 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Ivan\",\n    \"lastName\": \"Stacul\",\n    \"email\": \"ivan@gmail.com\",\n    \"password\": \"123\",\n    \"city\": \"Resistencia\",\n    \"province\": \"Chaco\",\n    \"country\": \"Argentina\",\n    \"role\": \"COLABORADOR\",\n    \"createdAt\": \"2021-12-12T11:34:45.3946616\",\n    \"updatedAt\": \"2021-12-12T11:34:45.3946616\"\n}"
+						}
+					]
+				},
+				{
+					"name": "UPDATE user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"lastName\": \"Stacul\",\r\n    \"email\": \"ivan@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"city\": \"Resistencia\",\r\n    \"province\": \"Chaco\",\r\n    \"country\": \"Argentina\",\r\n    \"role\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/users/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "UPDATE user",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"lastName\": \"Stacul\",\r\n    \"email\": \"ivan@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"city\": \"Resistencia\",\r\n    \"province\": \"Chaco\",\r\n    \"country\": \"Argentina\",\r\n    \"role\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseurl}}/users/1",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 12 Dec 2021 14:34:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Ivan\",\n    \"lastName\": \"Stacul\",\n    \"email\": \"ivan@gmail.com\",\n    \"password\": \"123456\",\n    \"city\": \"Resistencia\",\n    \"province\": \"Chaco\",\n    \"country\": \"Argentina\",\n    \"role\": \"USUARIO\",\n    \"createdAt\": \"2021-12-12T11:34:45.394662\",\n    \"updatedAt\": \"2021-12-12T11:34:49.4791893\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"lastName\": \"Stacul\",\r\n    \"email\": \"ivan@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"city\": \"Resistencia\",\r\n    \"province\": \"Chaco\",\r\n    \"country\": \"Argentina\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/users/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "DELETE user",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"lastName\": \"Stacul\",\r\n    \"email\": \"ivan@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"city\": \"Resistencia\",\r\n    \"province\": \"Chaco\",\r\n    \"country\": \"Argentina\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseurl}}/users/1",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 12 Dec 2021 14:27:35 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Startups",
+			"item": [
+				{
+					"name": "GET startups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/startups",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"startups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET startups by published",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/startups?published=false",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"startups"
+							],
+							"query": [
+								{
+									"key": "published",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET startup by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/startups/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"startups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET startup by tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/startups?tag=commerc",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"startups"
+							],
+							"query": [
+								{
+									"key": "tag",
+									"value": "commerc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE startup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mercado Libre\",\r\n    \"description\": \"E-commerce para la República Argentina\",\r\n    \"content\": \"Plataforma de compra-venta de productos de todo tipo.\",\r\n    \"goal\": 3000000,\r\n    \"published\": false,\r\n    \"owner\": {\r\n        \"id\": 1\r\n    },\r\n    \"tags\": [\r\n        {\r\n            \"name\": \"E-commerce\"\r\n        },\r\n        {\r\n            \"name\": \"Mercado Libre\"\r\n        }\r\n    ],\r\n    \"pictures\": [\r\n        {\r\n            \"uri\": \"http://localhost/meli.png\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/startups",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"startups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE startup",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mercado Libre\",\r\n    \"description\": \"E-commerce para la República Argentina\",\r\n    \"content\": \"Plataforma de compra-venta de productos de todo tipo.\",\r\n    \"goal\": 3000000,\r\n    \"published\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/startups/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"startups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE startup",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/startups/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"startups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Votes",
+			"item": [
+				{
+					"name": "GET votes by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/votes/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"votes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE vote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"generator\": 1,\r\n    \"startupId\": 1,\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/votes",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"votes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "CREATE events",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": 1,\r\n    \"description\": \"lalalalalalalalallalalalala\",\r\n    \"award\": 300000.369,\r\n    \"startDate\": \"2021-12-20\",\r\n    \"endDate\": \"2021-12-30\",\r\n    \"subscribers\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/events",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/events",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ranking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/events/2/ranking",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"events",
+								"2",
+								"ranking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE event",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": 0,\r\n    \"description\": \"lalalalalalalalallalalalala\",\r\n    \"award\": 300000.369,\r\n    \"startDate\": \"2021-12-20\",\r\n    \"endDate\": \"2021-12-30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/events/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": 0,\r\n    \"description\": \"lalalalalalalalallalalalala\",\r\n    \"award\": 300000.369,\r\n    \"startDate\": \"2021-12-20\",\r\n    \"endDate\": \"2021-12-30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/events/1",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
